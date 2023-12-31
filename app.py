@@ -10,10 +10,10 @@ import json
 
 app = Flask(__name__)
 # Initialize Firebase
-firebase_admin_credentials_secret = os.environ.get('firebase-admin-credentials')
+firebase_admin_credentials_json = os.environ.get('FIREBASE_ADMIN_CREDENTIALS_JSON')
 
 if firebase_admin_credentials_secret:
-    firebase_credentials = json.loads(firebase_admin_credentials_secret)
+    firebase_credentials = json.loads(firebase_admin_credentials_json)
     cred = credentials.Certificate(firebase_credentials)
     initialize_app(cred)
     db = firestore.client()
