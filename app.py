@@ -132,7 +132,8 @@ def fetch_songs_from_spotify(preferences, token):
     }
 
     # Joining preferences with commas without removing spaces within genre names
-    genre_string = ','.join(preferences)
+    genre_string = ','.join(preferences).replace('',"")
+
 
     query_params = {
         "seed_genres": genre_string,
