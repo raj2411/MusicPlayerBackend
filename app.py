@@ -10,7 +10,7 @@ import json
 
 app = Flask(__name__)
 # Initialize Firebase
-firebase_admin_credentials_secret = os.environ.get('RENDER_SECRET_FIREBASE_ADMIN_CREDENTIALS')
+firebase_admin_credentials_secret = os.environ.get('firebase-admin-credentials')
 
 if firebase_admin_credentials_secret:
     firebase_credentials = json.loads(firebase_admin_credentials_secret)
