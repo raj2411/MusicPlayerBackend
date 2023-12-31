@@ -1,17 +1,24 @@
 from flask import Flask, jsonify, request
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, initialize_app
 import requests
 import base64
 import datetime
-
+import os
+import json
 
 
 app = Flask(__name__)
 # Initialize Firebase
-cred = credentials.Certificate('/Users/rajpatel/Downloads/music-player-5cdb4-firebase-adminsdk-3bxcz-eb8dd4c846.json')
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+firebase_admin_credentials_secret = os.environ.get('RENDER_SECRET_FIREBASE_ADMIN_CREDENTIALS')
+
+if firebase_admin_credentials_secret:
+    firebase_credentials = json.loads(firebase_admin_credentials_secret)
+    cred = credentials.Certificate(firebase_credentials)
+    initialize_app(cred)
+    db = firestore.client()
+else:
+    raise ValueError("Firebase Admin SDK credentials secret not found in environment variable.")
 
 # Spotify API Credentials
 SPOTIFY_CLIENT_ID = '3fc01929fd794962a67ba60a333a53f5'
